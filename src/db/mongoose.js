@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://127.0.0.1:27017/romatox', {
+mongoose.connect('mongodb+srv://karnok:Karnok146!@cluster0.areqn.mongodb.net/billsplitter?retryWrites=true&w=majority', {
     // useNewUrlParser: true,
     // useCreateIndex: true,
     // useFindAndModify: false
