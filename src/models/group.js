@@ -6,8 +6,8 @@ const GroupSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-    createdBy: {type:mongoose.Schema.Types.ObjectId, ref: 'User'},
-    members: [{type:mongoose.Schema.Types.ObjectId, ref: 'User'}]}, { timestamps: true });
+    createdBy: {type:mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+    members: [{type:mongoose.Schema.Types.ObjectId, ref: 'User', required:true}]}, { timestamps: true });
 
     const Group = mongoose.model('Group', GroupSchema);
 

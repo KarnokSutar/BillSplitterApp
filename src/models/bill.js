@@ -18,12 +18,14 @@ const BillSchema = mongoose.Schema({
         ref:'Group'       
     },
     tAmount: {
-        type: Number
+        type: Number,
+        required: true
     },
     pPAmount: {
-        type: String
+        type: String,
+        required: true
     },
-    debtors:[{type:mongoose.Schema.Types.ObjectId, ref: 'User'}]
+    debtors:[{type:mongoose.Schema.Types.ObjectId, ref: 'User', required: true}]
 }, { timestamps: true })
 
 const Bill = mongoose.model('Bill', BillSchema)

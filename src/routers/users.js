@@ -31,7 +31,7 @@ router.post('/login', function(req, res, next){
         .then((user) => {
 
             if (!user) {
-                return res.status(401).json({ success: false, msg: "could not find user" });
+                return res.status(401).send( "could not find user" );
             }
             
             // Function defined at bottom of app.js
@@ -45,7 +45,7 @@ router.post('/login', function(req, res, next){
 
             } else {
 
-                res.status(401).json({ success: false, msg: "you entered the wrong password" });
+                res.status(401).send("you entered the wrong password" );
 
             }
 
@@ -78,7 +78,7 @@ console.log(saltHash)
 
     } catch (err) {
         console.log(err)
-        res.json({ success: false, msg: err.message });
+        res.status(401).send( err.message );
 
     }
 

@@ -14,9 +14,6 @@ router.post('/creategroup', passport.authenticate('jwt', { session: false }), as
         createdBy:user._id,
         members: members
     });
-
-group.save();
-
 console.log(members)
 console.log(req.body.members)
 // user.update({$push: {groups:group._id}})
@@ -36,17 +33,15 @@ user =await User.findById(user._id).populate({
     model: 'Group',
     select: '_id name'
 });
+
     try{
 await group.save();
-let groups = user.groups;
+
+const groups = user.groups;
 console.log(groups)
-groups = groups.map(g=>(
-   { id: g._id,
-     name:g.name}
-))
 res.json({groups: groups})
     } catch(err){
-        res.json({err: err})
+        res.status(401).send(err.message)
     }
 
 })

@@ -54,7 +54,17 @@ router.post('/createbill', passport.authenticate('jwt', { session: false }), asy
         debtors: debtors,
     });
 
-bill.save();
+bill.save(function(err,result){
+        if (err){
+            console.log(err.message)
+        
+        }
+        else{
+            console.log(result)
+        }
+    })
+
+
 
 
 debtors.forEach(debtorID => {

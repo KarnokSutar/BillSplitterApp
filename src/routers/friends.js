@@ -5,32 +5,45 @@ const User = require('../models/user')
 const router = new express.Router()
 const passport = require('passport');
 
-router.post('/addfriend',passport.authenticate('jwt', { session: false }), function(req, res, next){
+router.post('/addfriend',passport.authenticate('jwt', { session: false }), async function(req, res, next){
    
     let user = req.user;
     
- User.findOneAndUpdate({ _id: user._id }, {$push: {friends:req.body.friend_id}}, async function(error, success){
+ User.findOneAndUpdate({ _id: user._id }, {$push: {friends:req.body.friend_id}}, function(error, success){
      if (error) {
          console.log(error);
      } else {
          console.log(success);
-     }
- 
-     user =await User.findById(user._id).populate({
-         path: 'friends',
-         model: 'User'
-     });
- let friends = user.friends;
- 
- friends = friends.map(f=>(
-    { id: f._id,
-      name:f.name}
- ))
+     } })
 
- console.log(friends)
- 
- res.json({friends: friends})
- })});
+     User.findOneAndUpdate({ _id: req.body.friend_id }, {$push: {friends:user._id}}, function(error, success){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(success);
+        } })   
+
+
+     user =await User.findById(user._id).populate({
+        path: 'friends',
+        model: 'User'
+    });
+
+    
+let friends = user.friends;
+
+friends = friends.map(f=>(
+   { id: f._id,
+     name:f.name}
+))
+
+console.log(friends)
+
+res.json({friends: friends})
+    
+    
+    
+    });
  
  router.get('/friends',passport.authenticate('jwt', { session: false }), async function(req, res, next){
      let user = req.user;
