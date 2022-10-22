@@ -55,12 +55,6 @@ router.get('/groups', passport.authenticate('jwt', { session: false }), async fu
         select: '_id name'
     });
 let groups = user.groups;
-
-groups = groups.map(g=>(
-   { id: g._id,
-     name:g.name}
-))
-
 res.json({
     groups: groups
 })
@@ -68,18 +62,17 @@ res.json({
 });
 
 router.post('/members', passport.authenticate('jwt', { session: false }), async function(req, res, next){
-  const  group =await Group.findById(req.body.groupid).populate({
+  const user = req.user;
+    const  group =await Group.findById(req.body.groupid).populate({
         path: 'members',
-        model: 'User'
+        model: 'User',
+        select:'_id name'
+        
     });
 let members = group.members;
-
-members = members.map(m=>( 
-    {id: m._id,
-     name:m.name}))
-     
-     members.pop()
-
+members = members.filter(m=>(
+    m._id.toString() !==user._id.toString()
+))
 res.json({
     members: members // Last element is the user and we dont need it in the app.
 })

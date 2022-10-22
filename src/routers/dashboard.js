@@ -81,6 +81,11 @@ return a+ (+c.amount)
             balance: (lentAmount-owedAmount).toFixed(4)})
     });
 
+    ar = ar.filter((a)=>{
+        console.log(a.balance)
+     return   a.balance !== '0.0000'  // removing the element where balance is Zero
+})
+
     function sortByBalance(a,b) {
         return (parseInt(a.balance) < parseInt(b.balance)) ? -1 : 1; 
     }
@@ -95,7 +100,7 @@ return a+ (+c.amount)
         console.log(lElement)
         balance = ((+ lElement.balance) + (+ fElement.balance )).toFixed(4)
         if(Math.abs(fElement.balance)>Math.abs(lElement.balance)){
-            if (balance <0.001){
+            if (Math.abs(balance) <0.001){
                 db.push({payeeid:lElement.id,
                     payeeName: lElement.name,
                     amount: lElement.balance,
@@ -104,7 +109,7 @@ return a+ (+c.amount)
             } else{
 db.push({payeeid:fElement.id,
     payeeName: fElement.name,
- amount: - lElement.balance,
+ amount: lElement.balance,
  payorName: lElement.name,
 payorid:lElement.id})
 ar.push({id: fElement.id,
@@ -112,7 +117,7 @@ ar.push({id: fElement.id,
 balance:balance})}
         }
         if(Math.abs(fElement.balance)<Math.abs(lElement.balance)){
-            if (balance <0.001){
+            if (Math.abs(balance) <0.001){
                 db.push({payeeid:lElement.id,
                     payeeName: lElement.name,
                     amount: lElement.balance,

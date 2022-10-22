@@ -26,16 +26,12 @@ router.post('/addfriend',passport.authenticate('jwt', { session: false }), async
 
      user =await User.findById(user._id).populate({
         path: 'friends',
-        model: 'User'
+        model: 'User',
+        select:' name _id'
     });
 
     
 let friends = user.friends;
-
-friends = friends.map(f=>(
-   { id: f._id,
-     name:f.name}
-))
 
 console.log(friends)
 
@@ -50,14 +46,11 @@ res.json({friends: friends})
  
       user =await User.findById(user._id).populate({
          path: 'friends',
-         model: 'User'
+         model: 'User',
+         select:'_id name'
      });
  let friends = user.friends;
- 
- friends = friends.map(f=>(
-    { id: f._id,
-      name:f.name}
- ))
+
  
  res.json({friends: friends})
  });
