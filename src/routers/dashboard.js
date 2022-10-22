@@ -107,11 +107,11 @@ return a+ (+c.amount)
                     payorName: fElement.name,
                    payorid:fElement.id})  
             } else{
-db.push({payeeid:fElement.id,
-    payeeName: fElement.name,
+db.push({payeeid:lElement.id,
+    payeeName: lElement.name,
  amount: lElement.balance,
- payorName: lElement.name,
-payorid:lElement.id})
+ payorName: fElement.name,
+payorid:fElement.id})
 ar.push({id: fElement.id,
     name:fElement.name,
 balance:balance})}

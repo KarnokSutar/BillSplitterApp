@@ -51,7 +51,6 @@ router.get('/groups', passport.authenticate('jwt', { session: false }), async fu
     user =await User.findById(user._id).populate({
         path: 'groups',
         model: 'Group',
-        strictPopulate: false,
         select: '_id name'
     });
 let groups = user.groups;
